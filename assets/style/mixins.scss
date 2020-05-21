@@ -1,0 +1,44 @@
+@mixin noto($size: 16px, $color: $theme-navy, $weight: $font-regular) {
+  font-family: $noto-font;
+  font-weight: $weight;
+  font-size: $size;
+  color: $color;
+  word-spacing: 1px;
+  font-feature-settings: 'pkna';
+}
+
+@mixin absolute(
+  $top: null,
+  $left: null,
+  $right: null,
+  $bottom: null,
+  $z: $z-default,
+  $margin: auto
+) {
+  position: absolute;
+  margin: $margin;
+  z-index: $z;
+  @if $top != null {
+    top: $top;
+  }
+  @if $right != null {
+    right: $right;
+  }
+  @if $bottom != null {
+    bottom: $bottom;
+  }
+  @if $left != null {
+    left: $left;
+  }
+}
+
+@mixin flex(
+  $wrap: nowrap,
+  $justifyContent: space-between,
+  $alignItems: center
+) {
+  display: flex;
+  flex-wrap: $wrap;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}

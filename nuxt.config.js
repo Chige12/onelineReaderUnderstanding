@@ -1,7 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
+const { FBENB } = process.env
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
@@ -26,11 +28,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['ress'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/firebase'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -42,17 +44,29 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/style-resources', 'nuxt-webfontloader', '@nuxtjs/dotenv'],
+  styleResources: {
+    scss: ['~/assets/style/variables.scss', '~/assets/style/mixins.scss']
+  },
+  webfontloader: {
+    // add Google Fonts as "custom" | workaround required
+    custom: {
+      families: ['Noto Sans JP:n4,n7'],
+      urls: [
+        'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap'
+      ]
+    }
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/assets/vuetify/variables.scss'],
     theme: {
-      dark: true,
+      white: true,
       themes: {
-        dark: {
+        white: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
@@ -84,5 +98,8 @@ export default {
         })
       }
     }
+  },
+  env: {
+    FBENB
   }
 }

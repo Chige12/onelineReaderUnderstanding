@@ -1,0 +1,50 @@
+{
+  "fileMap": {
+    "contents/json/test_2.json": {
+      "title": "ある賭け事",
+      "created_at": "2019-06-20T00:00:00.000Z",
+      "link": "https://kakuyomu.jp/works/1177354054880314308/episodes/1177354054880314646",
+      "writer": "＠comsick",
+      "question_1": "賭けに勝ったのは、大金持ちと伯爵どちらですか？",
+      "selector_1": "大金持ち,伯爵",
+      "answer_1": "大金持ち",
+      "question_2": "伯爵との勝負で大金持ちが賭けたのは何ですか？",
+      "answer_2": "全財産",
+      "question_3": "大金持ちと伯爵が賭けをしたのはどんな場所ですか？",
+      "answer_3": "豪華客船",
+      "word_count_space": 1239,
+      "word_count": 1236,
+      "paragraphs": 29,
+      "dir": "contents/json",
+      "base": "test_2.json",
+      "ext": ".json",
+      "sourceBase": "test_2.md",
+      "sourceExt": ".md"
+    },
+    "contents/json/test_1.json": {
+      "title": "ある賭け事",
+      "created_at": "2019-06-20T00:00:00.000Z",
+      "link": "https://kakuyomu.jp/works/1177354054880314308/episodes/1177354054880314646",
+      "writer": "＠comsick",
+      "question_1": "賭けに勝ったのは、大金持ちと伯爵どちらですか？",
+      "selector_1": "大金持ち,伯爵",
+      "answer_1": "大金持ち",
+      "question_2": "伯爵との勝負で大金持ちが賭けたのは何ですか？",
+      "answer_2": "全財産",
+      "question_3": "大金持ちと伯爵が賭けをしたのはどんな場所ですか？",
+      "answer_3": "豪華客船",
+      "word_count_space": 1239,
+      "word_count": 1236,
+      "paragraphs": 29,
+      "dir": "contents/json",
+      "base": "test_1.json",
+      "ext": ".json",
+      "sourceBase": "test_1.md",
+      "sourceExt": ".md"
+    }
+  },
+  "sourceFileArray": [
+    "contents/posts/test_1.md",
+    "contents/posts/test_2.md"
+  ]
+}
