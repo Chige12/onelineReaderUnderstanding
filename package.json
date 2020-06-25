@@ -5,10 +5,10 @@
   "author": "chige12",
   "private": true,
   "scripts": {
-    "dev": "processmd contents/posts/*.md --stdout --outputDir contents/json > contents/summary.json && nuxt",
+    "dev": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "processmd contents/posts/*.md --stdout --outputDir contents/json > contents/summary.json && nuxt generate",
+    "generate": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {

@@ -1,8 +1,8 @@
 <template lang="pug">
   v-layout(column justify-center align-center)
-    v-flex(xs12 sm8 md6)
+    v-flex(xs12 sm8 md6).mt-8
       v-card
-        v-card-title.headline Welcome to the Vuetify + Nuxt.js template
+        v-card-title.headline オンライン 一行表示UI被験者実験
         v-card-text
           p Vuetify is a progressive Material Design component framework for
           | Vue.js. It was designed to empower developers to create amazing
@@ -19,67 +19,18 @@
           | Thank you for developing with Vuetify and I look forward to bringing
           | more exciting features in the future.
           .text-xs-right <em><small>&mdash; John Leider</small></em>
-          hr.my-3
+          hr.mt-4
         v-card-actions
+          v-checkbox(v-model="isCheked" label="上記に同意する").ml-4.mt-0
           v-spacer
-          v-btn(color="primary" nuxt to="/login") Googleでログイン
-          v-btn(@click="addTest") addTest
+          v-btn(:disabled="!isCheked" dense color="primary" nuxt to="/tests").mr-2.mb-4 Googleでログイン
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
-
 export default {
-  methods: {
-    addTest() {
-      firebase
-        .firestore()
-        .collection('tests')
-        .doc()
-        .set({
-          name: 'chige12',
-          start: '',
-          end: '',
-          data: [
-            {
-              key: 'Enter',
-              row: null,
-              height: null,
-              time: '00:00:000',
-              word: null
-            },
-            {
-              key: 'Enter',
-              row: null,
-              height: null,
-              time: '00:48:149',
-              word: null
-            }
-          ],
-          whiteout: false,
-          crack_px: 16,
-          judgment: [
-            {
-              Answer: '宇宙船に穴が開いて空気が薄くなったから',
-              Model: '船内の空気の密度が薄くなっていた'
-            },
-            { Model: '金的蹴り' },
-            { Model: 'チョキ' }
-          ],
-          story: {
-            id: 'story_6',
-            title: '宇宙の空気漏れ',
-            word_count_space: 753,
-            word_count: 753,
-            paragraphs: 25
-          }
-        })
-        .then(function() {
-          console.log('succsess')
-        })
-        .catch(function(error) {
-          console.log('error' + error)
-        })
+  data() {
+    return {
+      isCheked: false
     }
   }
 }

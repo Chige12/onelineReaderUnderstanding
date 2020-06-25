@@ -32,7 +32,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/firebase'],
+  plugins: [
+    '@/plugins/mixin-common-methods',
+    '@/plugins/vue-scrollto',
+    '@/plugins/firebase'
+  ],
   /*
    ** Nuxt.js dev-modules
    */

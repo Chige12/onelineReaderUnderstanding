@@ -1,18 +1,11 @@
 <template>
   <div>
-    <Menu />
     <nuxt />
   </div>
 </template>
 
 <script>
-import Menu from '~/components/organisms/Menu.vue'
-
-export default {
-  components: {
-    Menu
-  }
-}
+export default {}
 </script>
 
 <style>
