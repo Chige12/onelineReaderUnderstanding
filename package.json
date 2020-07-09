@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "build": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt build",
+    "start": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt start",
     "generate": "processmd contents/posts/*.md --stdout --markdownOptions.html --outputDir contents/json > contents/summary.json && nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
