@@ -1,6 +1,16 @@
 import colors from 'vuetify/es5/util/colors'
 require('dotenv').config()
-const { FBENB } = process.env
+const {
+  FB_API_KEY,
+  FB_AUTH_DOMAIN,
+  FB_DATABASE_URL,
+  FB_PROJECTID,
+  FB_STORAGE_BUCKET,
+  FB_MESSAGING_SENDER_ID,
+  FB_APPID,
+  FB_MEASUREMENTID,
+  HOGE
+} = process.env
 
 export default {
   mode: 'spa',
@@ -8,14 +18,14 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || 'Oneline Reader Test',
+    title: 'Oneline Reader Test',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || 'Oneline Reader Test'
+        content: 'Oneline Reader Test'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -103,6 +113,14 @@ export default {
     }
   },
   env: {
-    FBENB
+    FB_API_KEY,
+    FB_AUTH_DOMAIN,
+    FB_DATABASE_URL,
+    FB_PROJECTID,
+    FB_STORAGE_BUCKET,
+    FB_MESSAGING_SENDER_ID,
+    FB_APPID,
+    FB_MEASUREMENTID,
+    HOGE
   }
 }
