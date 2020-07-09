@@ -8,8 +8,7 @@ const {
   FB_STORAGE_BUCKET,
   FB_MESSAGING_SENDER_ID,
   FB_APPID,
-  FB_MEASUREMENTID,
-  HOGE
+  FB_MEASUREMENTID
 } = process.env
 
 export default {
@@ -120,7 +119,6 @@ export default {
     FB_STORAGE_BUCKET,
     FB_MESSAGING_SENDER_ID,
     FB_APPID,
-    FB_MEASUREMENTID,
-    HOGE
+    FB_MEASUREMENTID
   }
 }

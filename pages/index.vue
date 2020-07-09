@@ -32,9 +32,6 @@ export default {
     return {
       isCheked: false
     }
-  },
-  mounted() {
-    console.log(process.env.HOGE)
   }
 }
 </script>
