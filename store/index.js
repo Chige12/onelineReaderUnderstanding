@@ -18,7 +18,10 @@ export const state = () => ({
   storylist: null,
   alertTextArr: [],
   alertCounter: 0,
-  testsOrderArr: []
+  testsOrderArr: [],
+  realName: '',
+  belongs: '',
+  acceptDate: null
 })
 
 export const mutations = {
@@ -79,6 +82,21 @@ export const mutations = {
   },
   storyList(state, list) {
     state.storylist = list
+  },
+  setRealName(state, name) {
+    if (state.realName === '') {
+      state.realName = name
+    }
+  },
+  setBelongs(state, belongs) {
+    if (state.belongs === '') {
+      state.belongs = belongs
+    }
+  },
+  setAcceptDate(state, acceptDate) {
+    if (state.acceptDate === null) {
+      state.acceptDate = acceptDate
+    }
   }
 }
 
@@ -113,6 +131,9 @@ export const actions = {
       .signOut()
       .then(() => {
         commit('logout')
+        commit('setRealName', '')
+        commit('setBelongs', '')
+        commit('setAcceptDate', null)
       })
       .catch(function(error) {
         console.log(error)

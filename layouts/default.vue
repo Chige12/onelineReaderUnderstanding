@@ -48,11 +48,6 @@ export default {
           icon: 'mdi-apps',
           title: 'TopPage',
           to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Tests',
-          to: '/tests'
         }
       ],
       miniVariant: false,

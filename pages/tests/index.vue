@@ -18,6 +18,14 @@ export default {
     LoginInfoCard,
     TestList
   },
+  data() {
+    return {
+      realName: '',
+      belongs: '',
+      acceptDate: null,
+      oldAcceptDate: null
+    }
+  },
   computed: {
     user() {
       return this.$store.state.user
@@ -52,6 +60,34 @@ export default {
             const data = res.data()
             user = data
             isDocExisting = true
+            this.realName = user.realName
+              ? user.realName
+              : this.$store.state.realName
+            this.belongs = user.belongs
+              ? user.belongs
+              : this.$store.state.belongs
+            this.oldAcceptDate = user.acceptDate
+            this.acceptDate = user.acceptDate
+              ? user.acceptDate
+              : this.$store.state.acceptDate
+            this.$store.commit('setRealName', this.realName)
+            this.$store.commit('setBelongs', this.belongs)
+            this.$store.commit('setAcceptDate', this.acceptDate)
+            if (this.acceptDate === null) {
+              firebase
+                .auth()
+                .signOut()
+                .then(() => {
+                  this.$store.commit('logout')
+                  this.$store.commit('setRealName', '')
+                  this.$store.commit('setBelongs', '')
+                  this.$store.commit('setAcceptDate', null)
+                  this.$router.push('/')
+                })
+                .catch(function(error) {
+                  console.log(error)
+                })
+            }
           }
         })
         .catch((error) => {
@@ -73,7 +109,10 @@ export default {
         const randomTestJsonArr = this.latestRandomTestJsonArr(latestOrderArr)
         this.$store.commit('setRandomTestJsonArr', randomTestJsonArr)
         // Firebaseへマージ後の最新順序を送信
-        if (latestOrderArr.length !== oldOrder.length) {
+        if (
+          latestOrderArr.length !== oldOrder.length ||
+          this.oldAcceptDate === null
+        ) {
           this.updateFirestoreTestOrder(latestOrderArr)
         }
       }
@@ -91,6 +130,10 @@ export default {
         .collection('users')
         .doc(this.user.uid)
         .update({
+          user: this.user,
+          realName: this.realName,
+          belongs: this.belongs,
+          acceptDate: this.acceptDate,
           testsOrder: orderArr
         })
         .then(() => {
@@ -125,6 +168,9 @@ export default {
         .doc(this.user.uid)
         .set({
           user: this.user,
+          realName: this.realName,
+          belongs: this.belongs,
+          acceptDate: this.acceptDate,
           testsOrder: orderArr
         })
         .then(() => {
