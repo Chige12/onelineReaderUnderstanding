@@ -1,17 +1,12 @@
 ---
-title: ある賭け事
-created_at: 2019-06-20
-source: hoge
-link: https://kakuyomu.jp/works/1177354054880314308/episodes/1177354054880314646
-writer: ＠comsick
-question_number: 1
-question_1: 賭けに勝ったのは、大金持ちと伯爵どちらですか？
-selector_1: 大金持ち,伯爵
-answer_1: 大金持ち
-question_2: 伯爵との勝負で大金持ちが賭けたのは何ですか？
-answer_2: 全財産
-question_3: 大金持ちと伯爵が賭けをしたのはどんな場所ですか？
-answer_3: 豪華客船
+title: 小説を読み解く① 問題1
+created_at: 2020-6-11
+source: ベーシックパワトレ① 国語 | ©Learn-S Co., Ltd. 2018
+questions_number: 1
+question_type_1: radio
+question_1: 棒線部「彼の気持ち」として最も適当なものを以下から一つ選んでください。
+selector_1: 弟に馬鹿にされて悔しくてたまらないという気持ち,弟と仲良くできなかったことを公開する気持ち,弟ばかりが特別扱いされるのを理不尽に思う気持ち,弟をいじめてしまって申し訳ないと思う気持ち
+answer_1: 弟ばかりが特別扱いされるのを理不尽に思う気持ち
 
 word_count_space: 1239
 word_count: 1236

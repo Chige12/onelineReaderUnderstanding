@@ -146,6 +146,7 @@ export default {
               this.reset()
               this.$router.push('/tests')
             } else {
+              const totalWordCount = this.$store.state.totalWordCount
               const testFileData = {
                 user,
                 data: this.data,
@@ -159,7 +160,8 @@ export default {
                 },
                 whiteout,
                 judgment,
-                examination
+                examination,
+                totalWordCount
               }
               this.fileUpload(testFileData)
             }
