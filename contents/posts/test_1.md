@@ -1,7 +1,7 @@
 ---
 title: 小説を読み解く① 問題1
 created_at: 2020-6-11
-source: ベーシックパワトレ① 国語 | ©Learn-S Co., Ltd. 2018
+source: ベーシックパワトレ① 国語 | ©Learn-S Co., Ltd. 2018 p.24
 questions_number: 1
 question_type_1: radio
 question_1: 棒線部「彼の気持ち」として最も適当なものを以下から一つ選んでください。
