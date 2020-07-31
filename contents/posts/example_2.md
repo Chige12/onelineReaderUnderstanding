@@ -10,9 +10,9 @@ question_1: 棒線部「悲観主義になる」とはどういうことか。�
 selector_1: 思い通りの成果が得られず、失望すること。,あまり大きな成果を期待しないようにすること。,なんらかの成果を期待しておくこと。,期待通りの成果を得ることができないこと。
 answer_1: あまり大きな成果を期待しないようにすること。
 
-word_count_space: 1239
-word_count: 1236
-paragraphs: 29
+word_count_space: 164
+word_count: 164
+paragraphs: 5
 ---
 
 よく「逃がした魚は大きい」という。
