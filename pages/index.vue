@@ -3,12 +3,9 @@
     v-flex(xs12 sm8 md6).mt-8
       v-card.px-6.py-2.mb-8
         v-card-actions
-          v-checkbox(
-            v-model="haveAgreed"
-            label="私は既に以下同意済みで、過去にサインインしたことがあります。"
-            )
+          v-card-text 既に以下同意済みで、過去にサインインしたことがあればこちらからでもログインできます。
           v-spacer
-          v-btn(:disabled="!haveAgreed" nuxt to="/tests" color="primary" dense) ログイン
+          v-btn(nuxt to="/tests" color="primary" dense) ログイン
       v-card.pa-6
         v-card-title.headline オンライン 1行表示UI被験者実験 サインイン画面
         v-card-text

@@ -12,7 +12,7 @@
         ></div>
       </div>
     </div>
-    <Whiteout />
+    <Whiteout ref="whiteoutRef" />
     <StopWatch />
     <StartPage
       v-if="isStartPageShowed"
@@ -47,7 +47,8 @@ export default {
       nowrow: null,
       rowlist: [],
       whiteupperH: 16,
-      isStartPageShowed: true
+      isStartPageShowed: true,
+      duration: 0
     }
   },
   computed: {
@@ -102,11 +103,13 @@ export default {
       const whiteoutUpper = document.getElementById('whiteout_upper')
       if (whiteoutUpper) {
         this.whiteupperH = whiteoutUpper.clientHeight
+        console.log(this.whiteupperH)
       } else {
         console.log('whiteout_upper is ' + whiteoutUpper)
       }
       for (let i = 0; i < this.rowlist.length; i++) {
         this.rowlist[i].setAttribute('id', `pg_${i}`)
+        console.log(this.rowlist[i])
       }
       setTimeout(() => this.setQuestionData(), 500)
       this.setExamination()
@@ -216,20 +219,20 @@ export default {
     },
     arrowScrollUp(e) {
       let height = 0
-      const duration = 0
       if (this.nowrow === 0) {
         e.preventDefault()
         const titleHeight = this.$refs.storyTitle.clientHeight
         const writerHeight = this.$refs.storyWriter.clientHeight
         this.$store.commit('changeCrack', titleHeight + writerHeight * 2)
-        this.$scrollTo(`#top`, duration, { offset: 0 })
+        this.$scrollTo(`#top`, { duration: this.duration, offset: 0 })
         this.nowrow = null
       }
       if (this.nowrow > 0) {
         e.preventDefault()
         height = this.rowlist[this.nowrow - 1].clientHeight / 2
         this.$store.commit('changeCrack', height * 2)
-        this.$scrollTo(`#pg_${this.nowrow - 1}`, duration, {
+        this.$scrollTo(`#pg_${this.nowrow - 1}`, {
+          duration: this.duration,
           offset: -this.whiteupperH + height
         })
         this.nowrow--
@@ -242,18 +245,19 @@ export default {
     },
     arrowScrollDown(e) {
       let height = 0
-      const duration = 0
       if (this.nowrow === null) {
         height = this.rowlist[0].clientHeight / 2
         this.$store.commit('changeCrack', height * 2)
-        this.$scrollTo(`#pg_0`, duration, {
+        this.$scrollTo(`#pg_0`, {
+          duration: this.duration,
           offset: -this.whiteupperH + height
         })
         this.nowrow = 0
       } else if (this.nowrow >= 0 && this.nowrow < this.rowlist.length - 1) {
         height = this.rowlist[this.nowrow + 1].clientHeight / 2
         this.$store.commit('changeCrack', height * 2)
-        this.$scrollTo(`#pg_${this.nowrow + 1}`, duration, {
+        this.$scrollTo(`#pg_${this.nowrow + 1}`, {
+          duration: this.duration,
           offset: -this.whiteupperH + height
         })
         this.nowrow++

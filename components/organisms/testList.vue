@@ -14,7 +14,7 @@
               v-list-item-subtitle(style="line-height: 1.8;")
                 span ソース : {{test.source}} 
               v-list-item-subtitle(style="line-height: 1.8;")
-                span UI : {{test.ui==='oneline' ? '一行のみ表示' : '通常スクロール'}}
+                span UI : {{test.ui==='oneline' ? '一行表示UI' : '通常'}}
           v-card-actions.ml-2.mb-2
             v-btn(
               v-if="test.done === false"

@@ -14,6 +14,7 @@
       )
 </template>
 <script>
+import { cloneDeep } from 'lodash'
 import firebase from '~/plugins/firebase'
 import questionForm from '~/components/atoms/questionForm.vue'
 
@@ -29,11 +30,17 @@ export default {
       elapsedTime: 0,
       timerId: null,
       timeToadd: 0,
+      answerTimer: '00:00:000',
+      answerStartTime: null,
+      answerElapsedTime: 0,
+      answerTimerId: null,
+      answerTimeToadd: 0,
       data: [],
       once: 0,
       row: '',
       endform: false,
       timerRun: false,
+      answerTimerRun: false,
       questionAnswer: []
     }
   },
@@ -97,6 +104,7 @@ export default {
     endTest() {
       this.endform = true
       this.endTime = new Date()
+      this.startAnswerTime()
     },
     judgment() {
       const judgment = []
@@ -124,6 +132,7 @@ export default {
       }
     },
     async fileParse() {
+      this.stopAnswerTime()
       const user = this.$store.state.user
       const uid = user.uid
       const whiteout = this.$store.state.whiteout
@@ -147,6 +156,7 @@ export default {
               this.$router.push('/tests')
             } else {
               const totalWordCount = this.$store.state.totalWordCount
+              const answerTime = this.answerTimer
               const testFileData = {
                 user,
                 data: this.data,
@@ -158,6 +168,7 @@ export default {
                   yyyymmddhhmi: this.yyyymmddhhmi(this.startTime),
                   date: this.startTime
                 },
+                answerTime,
                 whiteout,
                 judgment,
                 examination,
@@ -170,6 +181,7 @@ export default {
         .catch((error) => {
           console.log('Error! : get Test order', error)
         })
+      this.resetAnswerTime()
     },
     fileUpload(testFileData) {
       // Firebaseへ投げる
@@ -189,7 +201,7 @@ export default {
     testFinished() {
       const uid = this.$store.state.user.uid
       const examinId = this.$store.state.examination.id
-      const RandomTestJsonArr = [...this.$store.state.randomTestJsonArr]
+      const RandomTestJsonArr = cloneDeep(this.$store.state.randomTestJsonArr)
       const testIndex = RandomTestJsonArr.findIndex((x) => {
         return x.base === examinId + x.ext
       })
@@ -266,16 +278,46 @@ export default {
     reset() {
       // 経過時刻を更新するための変数elapsedTimeを0にしてあげつつ、updateTimetTextで0になったタイムを表示。
       this.elapsedTime = 0
-
       // リセット時に0に初期化したいのでリセットを押した際に0を代入してあげる
       this.timeToadd = 0
-
       // updateTimerTextで0になったタイムを表示
       this.updateTimerText()
       this.once = 0
       this.row = ''
       this.endform = false
       this.$emit('reset')
+    },
+    updateTimerTextAnswerTime() {
+      let m = Math.floor(this.answerElapsedTime / 60000)
+      let s = Math.floor((this.answerElapsedTime % 60000) / 1000)
+      let ms = this.answerElapsedTime % 1000
+      m = ('0' + m).slice(-2)
+      s = ('0' + s).slice(-2)
+      ms = ('0' + ms).slice(-3)
+      this.answerTimer = m + ':' + s + ':' + ms
+    },
+    countUpAnswerTime() {
+      this.answerTimerId = setTimeout(() => {
+        this.answerElapsedTime =
+          Date.now() - this.answerStartTime + this.answerTimeToadd
+        this.updateTimerTextAnswerTime()
+        this.countUpAnswerTime()
+      }, 10)
+    },
+    startAnswerTime() {
+      this.answerStartTime = Date.now()
+      this.countUpAnswerTime()
+      this.answerTimerRun = true
+    },
+    stopAnswerTime() {
+      clearTimeout(this.answerTimerId)
+      this.answerTimeToadd += Date.now() - this.answerStartTime
+      this.answerTimerRun = false
+    },
+    resetAnswerTime() {
+      this.answerElapsedTime = 0
+      this.answerTimeToadd = 0
+      this.updateTimerTextAnswerTime()
     }
   }
 }

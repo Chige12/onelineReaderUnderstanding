@@ -42,8 +42,9 @@ export default {
    */
   plugins: [
     '@/plugins/mixin-common-methods',
-    '@/plugins/vue-scrollto',
-    '@/plugins/firebase'
+    '@/plugins/firebase',
+    '@/plugins/localStrage',
+    '@/plugins/vue-scrollto'
   ],
   /*
    ** Nuxt.js dev-modules

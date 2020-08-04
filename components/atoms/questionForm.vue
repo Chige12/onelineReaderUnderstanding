@@ -20,7 +20,7 @@
                 :key="`sel_${sel_key}`"
                 :label="sel_item" :value="sel_item"
               )
-      v-btn(:disabled="isDisabled" color="primary" @click="fileParse") 回答を送信
+      v-btn(:disabled="isDisabled" color="primary" @click="fileParse") 解答を送信
 </template>
 <script>
 export default {

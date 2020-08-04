@@ -36,14 +36,15 @@ export default {
   },
   watch: {
     user() {
-      // Firebaseから並び替え順序を受け取る
       if (this.user) {
         this.getData()
       }
     }
   },
   mounted() {
-    this.setAuthUser()
+    setTimeout(() => {
+      this.setAuthUser()
+    }, 0)
   },
   methods: {
     async getData() {
@@ -60,19 +61,19 @@ export default {
             const data = res.data()
             user = data
             isDocExisting = true
-            this.realName = user.realName
-              ? user.realName
-              : this.$store.state.realName
-            this.belongs = user.belongs
-              ? user.belongs
-              : this.$store.state.belongs
+            if (user.realName !== null) {
+              this.realName = user.realName
+              this.$store.commit('setRealName', this.realName)
+            }
+            if (user.belongs !== null) {
+              this.belongs = user.belongs
+              this.$store.commit('setBelongs', this.belongs)
+            }
             this.oldAcceptDate = user.acceptDate
-            this.acceptDate = user.acceptDate
-              ? user.acceptDate
-              : this.$store.state.acceptDate
-            this.$store.commit('setRealName', this.realName)
-            this.$store.commit('setBelongs', this.belongs)
-            this.$store.commit('setAcceptDate', this.acceptDate)
+            if (user.acceptDate !== null) {
+              this.acceptDate = user.acceptDate
+              this.$store.commit('setAcceptDate', this.acceptDate)
+            }
             if (this.acceptDate === null) {
               firebase
                 .auth()
@@ -125,15 +126,18 @@ export default {
       )
     },
     updateFirestoreTestOrder(orderArr) {
+      const realName = this.$store.state.realName
+      const belongs = this.$store.state.belongs
+      const acceptDate = this.$store.state.acceptDate
       firebase
         .firestore()
         .collection('users')
         .doc(this.user.uid)
         .update({
           user: this.user,
-          realName: this.realName,
-          belongs: this.belongs,
-          acceptDate: this.acceptDate,
+          realName,
+          belongs,
+          acceptDate,
           testsOrder: orderArr
         })
         .then(() => {
