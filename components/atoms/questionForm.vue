@@ -1,7 +1,6 @@
 <template lang="pug">
   .endform
     .endform_wrapper
-      h2 {{user.displayName}}さん お疲れさまでした。
       form
         div(v-if="questionData")
           h3 以下の問題にお答えください。

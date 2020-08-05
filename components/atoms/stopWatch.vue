@@ -12,15 +12,22 @@
         :questionAnswer="questionAnswer"
         @fileParse="fileParse"
       )
+      answerCheck(
+        v-if="isAnswerCheckOpened"
+        :questionData="questionData"
+        :questionAnswer="questionAnswer"
+      )
 </template>
 <script>
 import { cloneDeep } from 'lodash'
 import firebase from '~/plugins/firebase'
 import questionForm from '~/components/atoms/questionForm.vue'
+import answerCheck from '~/components/atoms/answerCheck.vue'
 
 export default {
   components: {
-    questionForm
+    questionForm,
+    answerCheck
   },
   data() {
     return {
@@ -41,7 +48,8 @@ export default {
       endform: false,
       timerRun: false,
       answerTimerRun: false,
-      questionAnswer: []
+      questionAnswer: [],
+      isAnswerCheckOpened: false
     }
   },
   computed: {
@@ -132,6 +140,7 @@ export default {
       }
     },
     async fileParse() {
+      this.isAnswerCheckOpened = true
       this.stopAnswerTime()
       const user = this.$store.state.user
       const uid = user.uid
@@ -223,7 +232,6 @@ export default {
           .then(() => {
             this.$store.commit('setRandomTestJsonArr', RandomTestJsonArr)
             this.reset()
-            this.$router.push('/tests')
           })
           .catch(function(error) {
             console.log('error' + error)
