@@ -126,18 +126,21 @@ export const actions = {
       })
   },
   logout({ commit }) {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        commit('logout')
-        commit('setRealName', '')
-        commit('setBelongs', '')
-        commit('setAcceptDate', null)
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+    this.$router.push('./')
+    setTimeout(() => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          commit('logout')
+          commit('setRealName', '')
+          commit('setBelongs', '')
+          commit('setAcceptDate', null)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    }, 500)
   },
   updateTestsOrderArr({ commit, state }) {
     commit('updateTestsOrderArr')

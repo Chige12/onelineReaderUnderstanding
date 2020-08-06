@@ -1,7 +1,7 @@
 <template lang="pug">
   v-layout
     main(v-if="user")
-      LoginInfoCard(:user="user")
+      LoginInfoCard(:user="user" @logout="logout")
       TestList(:randomTestJsonArr="randomTestJsonArr")
     main(v-else="user")
       v-progress-circular(indeterminate size="64").progress
@@ -285,6 +285,9 @@ export default {
     getRandomInt(max) {
       // 0〜(max-1)の間の整数でランダム
       return Math.floor(Math.random() * Math.floor(max))
+    },
+    logout() {
+      this.$store.dispatch('logout')
     }
   }
 }
