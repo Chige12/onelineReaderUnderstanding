@@ -9,15 +9,16 @@
       questionForm(
         v-if="endform"
         :questionData="questionData"
-        :questionAnswer="questionAnswer"
+        :radioAnswer="radioAnswer"
         :checkedAnswer="checkedAnswer"
-        @updateCheckedAnswer="checkedAnswer=$event"
+        @updateCheckedAnswer="updateCheckedAnswer"
+        @updateRadioAnswer="pushAnswerTimeList"
         @fileParse="fileParse"
       )
       answerCheck(
         v-if="isAnswerCheckOpened"
         :questionData="questionData"
-        :questionAnswer="questionAnswer"
+        :radioAnswer="radioAnswer"
       )
 </template>
 <script>
@@ -50,7 +51,8 @@ export default {
       endform: false,
       timerRun: false,
       answerTimerRun: false,
-      questionAnswer: [],
+      answerTimeList: [],
+      radioAnswer: [],
       checkedAnswer: [],
       isAnswerCheckOpened: false
     }
@@ -79,7 +81,14 @@ export default {
       } else {
         word = null
       }
-      this.data.push({ ...lessdata, time: nowtime, word })
+      if (this.data.length !== 0) {
+        if (this.data[this.data.length - 1].time !== nowtime) {
+          this.data.push({ ...lessdata, time: nowtime, word })
+        }
+      } else {
+        this.data.push({ ...lessdata, time: nowtime, word })
+      }
+
       if (lessdata.key === 'Enter') {
         if (this.timerRun) {
           this.stop()
@@ -120,7 +129,7 @@ export default {
     judgment() {
       const judgment = []
       judgment[0] = {
-        Answer: this.questionAnswer[0],
+        Answer: this.radioAnswer[0],
         Model: this.questionData[0].A
       }
       judgment[1] = {
@@ -153,6 +162,8 @@ export default {
       const judgment = this.judgment()
       const examination = this.$store.state.examination
 
+      this.pushAnswerTimeList('answer', 'Finished', null)
+
       await firebase
         .firestore()
         .collection('users')
@@ -182,7 +193,10 @@ export default {
                   yyyymmddhhmi: this.yyyymmddhhmi(this.startTime),
                   date: this.startTime
                 },
-                answerTime,
+                answer: {
+                  time: answerTime,
+                  timeList: this.answerTimeList
+                },
                 whiteout,
                 judgment,
                 examination,
@@ -278,6 +292,7 @@ export default {
       // 再帰的に使えるように関数を作る
       this.countUp()
       this.timerRun = true
+      console.log('Start timer')
     },
     stop() {
       // タイマーを止めるにはclearTimeoutを使う必要があり、そのためにはclearTimeoutの引数に渡すためのタイマーのidが必要
@@ -287,6 +302,7 @@ export default {
       // それを回避するためには過去のスタート時間からストップ時間までの経過時間を足してあげなければならない。elapsedTime = Date.now - startTime + timeToadd (timeToadd = ストップを押した時刻(Date.now)から直近のスタート時刻(startTime)を引く)
       this.timeToadd += Date.now() - this.startTime
       this.timerRun = false
+      console.log('Stop timer')
     },
     reset() {
       // 経過時刻を更新するための変数elapsedTimeを0にしてあげつつ、updateTimetTextで0になったタイムを表示。
@@ -321,16 +337,45 @@ export default {
       this.answerStartTime = Date.now()
       this.countUpAnswerTime()
       this.answerTimerRun = true
+      console.log('Start Answer timer')
     },
     stopAnswerTime() {
       clearTimeout(this.answerTimerId)
       this.answerTimeToadd += Date.now() - this.answerStartTime
       this.answerTimerRun = false
+      console.log('Stop Answer timer')
     },
     resetAnswerTime() {
       this.answerElapsedTime = 0
       this.answerTimeToadd = 0
       this.updateTimerTextAnswerTime()
+    },
+    updateCheckedAnswer(answer) {
+      // 重複していないデータのみ抽出
+      const mergeArr = [...answer, ...this.checkedAnswer]
+      const nonDuplicateArr = mergeArr.filter((val, idx, arr) => {
+        return arr.indexOf(val) === arr.lastIndexOf(val)
+      })
+      if (
+        this.checkedAnswer.includes(nonDuplicateArr[0]) &&
+        !answer.includes(nonDuplicateArr[0])
+      ) {
+        this.pushAnswerTimeList(nonDuplicateArr[0], 'unset', 2)
+      } else {
+        this.pushAnswerTimeList(nonDuplicateArr[0], 'set', 2)
+      }
+      this.checkedAnswer = answer
+    },
+    pushAnswerTimeList(value, set, quesitonNumber) {
+      const time = this.answerTimer
+      const data = {
+        time,
+        set,
+        value,
+        quesitonNumber
+      }
+      this.answerTimeList.push(data)
+      console.log(data.time, data.set, data.value, data.quesitonNumber)
     }
   }
 }

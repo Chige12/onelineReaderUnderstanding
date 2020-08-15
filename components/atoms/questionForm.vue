@@ -12,7 +12,7 @@
               p.question_text {{ question.Q }}
               v-radio-group(
                 v-if="question.S !== null"
-                v-model="questionAnswer[question_id]"
+                v-model="radioAnswer[question_id]"
                 row
               )
                 v-radio.v-radio(
@@ -43,7 +43,7 @@ export default {
       type: Array,
       default: null
     },
-    questionAnswer: {
+    radioAnswer: {
       type: Array,
       default: null
     },
@@ -71,8 +71,9 @@ export default {
     }
   },
   watch: {
-    questionAnswer() {
+    radioAnswer(value) {
       this.isDisabled = false
+      this.$emit('updateRadioAnswer', value[0], 'set', 1)
     }
   },
   methods: {

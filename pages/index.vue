@@ -45,7 +45,7 @@
               v-row
                 v-checkbox(
                   v-model="isCheked"
-                  :rules="[v => !!v || '同意しないとログインはできません']"
+                  :rules="[v => !!v || '同意しないとサインインはできません']"
                   label="同意する"
                   ).mt-0.ml-2
                 v-spacer

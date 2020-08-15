@@ -23,11 +23,11 @@ export default {
   props: {
     questionData: {
       type: Array,
-      default: null
+      default: () => []
     },
     questionAnswer: {
       type: Array,
-      default: null
+      default: () => []
     }
   },
   data() {

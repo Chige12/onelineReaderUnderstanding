@@ -103,13 +103,11 @@ export default {
       const whiteoutUpper = document.getElementById('whiteout_upper')
       if (whiteoutUpper) {
         this.whiteupperH = whiteoutUpper.clientHeight
-        console.log(this.whiteupperH)
       } else {
         console.log('whiteout_upper is ' + whiteoutUpper)
       }
       for (let i = 0; i < this.rowlist.length; i++) {
         this.rowlist[i].setAttribute('id', `pg_${i}`)
-        console.log(this.rowlist[i])
       }
       setTimeout(() => this.setQuestionData(), 500)
       this.setExamination()
