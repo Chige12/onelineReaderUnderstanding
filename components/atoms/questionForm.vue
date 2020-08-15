@@ -101,8 +101,8 @@ export default {
   right: 0;
   bottom: 0;
   z-index: 20000;
-  width: 980px;
-  height: 580px;
+  width: 1024px;
+  height: calc(100% - 120px);
   background: #fff;
   overflow-y: auto;
   padding: 60px;

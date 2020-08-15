@@ -10,7 +10,7 @@
         v-list-item-action
           v-menu(offset-y)
             template(v-slot:activator="{ on }") 
-              v-btn(v-on="on" color="primary") ログイン中
+              v-btn(depressed v-on="on" color="primary") ログイン中
             v-list
               v-list-item(@click="logout")
                 v-list-item-title ログアウト

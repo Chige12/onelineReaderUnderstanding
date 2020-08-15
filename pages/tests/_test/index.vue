@@ -57,6 +57,9 @@ export default {
     },
     fontSize() {
       return this.$store.state.fontSize
+    },
+    randomTestJsonArr() {
+      return this.$store.state.randomTestJsonArr
     }
   },
   validate({ params }) {

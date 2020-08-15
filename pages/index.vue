@@ -73,7 +73,7 @@ export default {
       this.$refs.form.validate()
       this.$store.commit('setRealName', this.realName)
       this.$store.commit('setBelongs', this.belongs)
-      const date = new Date()
+      const date = new Date() // 読める形にする
       this.$store.commit('setAcceptDate', date)
       this.$router.push('/tests')
     }

@@ -1,7 +1,8 @@
 <template lang="pug">
   v-layout
-    main(v-if="user")
+    main(v-if="user").mt-6
       LoginInfoCard(:user="user" @logout="logout")
+      EnqueteForm(:realName="realName", :belongs="belongs")
       TestList(:randomTestJsonArr="randomTestJsonArr")
     main(v-else="user")
       v-progress-circular(indeterminate size="64").progress
@@ -11,11 +12,13 @@ import { uniqBy } from 'lodash'
 import firebase from '~/plugins/firebase'
 import summaryJson from '~/contents/summary.json'
 import LoginInfoCard from '~/components/organisms/loginInfoCard.vue'
+import EnqueteForm from '~/components/organisms/EnqueteForm.vue'
 import TestList from '~/components/organisms/testList.vue'
 
 export default {
   components: {
     LoginInfoCard,
+    EnqueteForm,
     TestList
   },
   data() {
@@ -166,15 +169,18 @@ export default {
       this.setFirestoreTestOrder(newOrderArr)
     },
     setFirestoreTestOrder(orderArr) {
+      const realName = this.$store.state.realName
+      const belongs = this.$store.state.belongs
+      const acceptDate = this.$store.state.acceptDate
       firebase
         .firestore()
         .collection('users')
         .doc(this.user.uid)
         .set({
           user: this.user,
-          realName: this.realName,
-          belongs: this.belongs,
-          acceptDate: this.acceptDate,
+          realName,
+          belongs,
+          acceptDate,
           testsOrder: orderArr
         })
         .then(() => {
