@@ -4,11 +4,19 @@ example: true
 example_test_type: scroll
 created_at: 2020-6-11
 source: ベーシックパワトレ① 国語 p.23 | ©Learn-S Co., Ltd. 2018
-questions_number: 1
+questions_number: 2
+
 question_type_1: radio
 question_1: 棒線部「逃した魚は小さくてすむ」はどのようなことをたとえているか。最も適当なものを以下から一つ選んでください。
 selector_1: 成果が得られなくても失望は小さくてすむということ。, 成果が得られたときの喜びが少ないということ。, 成果が得られたときの喜びも大きくなるということ。, 成果が得られなかったときの失望が大きいということ。
 answer_1: 成果が得られなくても失望は小さくてすむということ。
+
+question_type_2: checkbox
+question_2: 文章中に現れた単語をすべて選択してください。
+selector_2: 魚,期待通り,期待,悲観主義,人,失望,自分,成果
+selector_2_wrong: 専門,用語,和文,データ,私語,重要,名前,日本
+answer_2: 魚,期待通り,期待,悲観主義,人,失望,自分,成果
+
 
 word_count_space: 164
 word_count: 164

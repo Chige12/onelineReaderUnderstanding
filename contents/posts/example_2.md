@@ -4,11 +4,18 @@ example: true
 example_test_type: oneline
 created_at: 2020-6-11
 source: ベーシックパワトレ① 国語 p.23 | ©Learn-S Co., Ltd. 2018
-questions_number: 1
+questions_number: 2
+
 question_type_1: radio
 question_1: 棒線部「悲観主義になる」とはどういうことか。最も適当なものを以下から一つ選びなさい。
 selector_1: 思い通りの成果が得られず、失望すること。,あまり大きな成果を期待しないようにすること。,なんらかの成果を期待しておくこと。,期待通りの成果を得ることができないこと。
 answer_1: あまり大きな成果を期待しないようにすること。
+
+question_type_2: checkbox
+question_2: 文章中に現れた単語をすべて選択してください。
+selector_2: 魚,期待通り,期待,悲観主義,人,失望,自分,成果
+selector_2_wrong: 女性,施設,表情,スタッフ,笑顔,内情,家庭,保護
+answer_2: 魚,期待通り,期待,悲観主義,人,失望,自分,成果
 
 word_count_space: 164
 word_count: 164

@@ -10,6 +10,8 @@
         v-if="endform"
         :questionData="questionData"
         :questionAnswer="questionAnswer"
+        :checkedAnswer="checkedAnswer"
+        @updateCheckedAnswer="checkedAnswer=$event"
         @fileParse="fileParse"
       )
       answerCheck(
@@ -49,6 +51,7 @@ export default {
       timerRun: false,
       answerTimerRun: false,
       questionAnswer: [],
+      checkedAnswer: [],
       isAnswerCheckOpened: false
     }
   },
@@ -116,11 +119,13 @@ export default {
     },
     judgment() {
       const judgment = []
-      for (let i = 0; i < this.questionData.length; i++) {
-        judgment[i] = {
-          Answer: this.questionAnswer[i],
-          Model: this.questionData[i].A
-        }
+      judgment[0] = {
+        Answer: this.questionAnswer[0],
+        Model: this.questionData[0].A
+      }
+      judgment[1] = {
+        Answer: this.checkedAnswer,
+        Model: this.questionData[1].A.split(',')
       }
       return judgment
     },

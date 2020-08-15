@@ -121,6 +121,7 @@ export default {
         switch (i + 1) {
           case 1:
             if (this.question_1 && this.selector_1 && this.answer_1) {
+              question.type = this.question_type_1
               question.Q = this.question_1
               question.S = this.selectorTextToArray(this.selector_1)
               question.A = this.answer_1
@@ -130,8 +131,17 @@ export default {
             break
           case 2:
             if (this.question_2 && this.selector_2 && this.answer_2) {
+              question.type = this.question_type_2
               question.Q = this.question_2
-              question.S = this.selectorTextToArray(this.selector_2)
+              const trueSelect = this.arrayLengthLimit(
+                this.randomizeArr(this.selector_2.split(',')),
+                15
+              )
+              const wrongSelect = this.arrayLengthLimit(
+                this.randomizeArr(this.selector_2_wrong.split(',')),
+                15
+              )
+              question.S = this.randomizeArr([...trueSelect, ...wrongSelect])
               question.A = this.answer_2
             } else {
               console.log('Error! Missing data question_2')
@@ -139,6 +149,7 @@ export default {
             break
           case 3:
             if (this.question_3 && this.selector_3 && this.answer_3) {
+              question.type = this.question_type_3
               question.Q = this.question_3
               question.S = this.selectorTextToArray(this.selector_3)
               question.A = this.answer_3
@@ -148,6 +159,7 @@ export default {
             break
           case 4:
             if (this.question_4 && this.selector_4 && this.answer_4) {
+              question.type = this.question_type_4
               question.Q = this.question_4
               question.S = this.selectorTextToArray(this.selector_4)
               question.A = this.answer_4
@@ -164,13 +176,12 @@ export default {
     },
     selectorTextToArray(text) {
       const splitTextArr = text.split(',')
-      for (let i = 0; i < splitTextArr.length; i++) {
-        const t = splitTextArr[i]
-        if (t.slice(1) === ' ') {
-          splitTextArr[i] = splitTextArr[i].shift()
-        }
-      }
-      const sortedSplitTextArr = splitTextArr
+      const randomSplitTextArr = this.randomizeArr(splitTextArr)
+      randomSplitTextArr.push('わからない')
+      return randomSplitTextArr
+    },
+    randomizeArr(arr) {
+      return arr
         .map(function(a) {
           return { weight: Math.random(), value: a }
         })
@@ -180,8 +191,9 @@ export default {
         .map(function(a) {
           return a.value
         })
-      sortedSplitTextArr.push('わからない')
-      return sortedSplitTextArr
+    },
+    arrayLengthLimit(arr, limit) {
+      return arr.slice(0, limit)
     },
     setExamination() {
       const examination = {
