@@ -37,6 +37,14 @@
                     v-text-field(label="左目" type="number" v-model.number="leftSight" :rules="rules.age" step="0.5")
                   v-col(cols="12" md="3")
                     v-text-field(label="右目" type="number" v-model.number="rightSight" :rules="rules.age" step="0.5")
+                li: .my-4
+                  label 飛ばし読みをよく行いますか？ *
+                  v-radio-group.mt-2(v-model="skipRead" row :rules="rules.req")
+                    v-radio(v-for="(skipRead,skipReadId) in sel.skipRead" :key="`skipRead-${skipRead}`" :label="skipRead" :value="skipRead")
+                li: .my-4
+                  label 国語の問題文は得意ですか？ *
+                  v-radio-group.mt-2(v-model="japanese" row :rules="rules.req")
+                    v-radio(v-for="(japanese,japaneseId) in sel.japanese" :key="`japanese-${japanese}`" :label="japanese" :value="japanese")
                 v-btn(:disabled="!valid" :color="error ? 'error' : 'primary'" @click="validate" :loading="updating").mr-2 {{endEnquete ? '回答を再送する' : '回答を送信する'}}
                 v-btn(color="#888" dark @click="formOpen = false") キャンセルして戻る
 </template>
@@ -71,7 +79,15 @@ export default {
         age: [(v) => v > 0 || '0よりも大きくしてください']
       },
       sel: {
-        gender: ['男性', '女性', 'その他']
+        gender: ['男性', '女性', 'その他'],
+        skipRead: ['全くしない', 'あまりしない', 'たまにする', 'よくする'],
+        japanese: [
+          '不得意',
+          'どちらかというと不得意',
+          'どちらでもない',
+          'どちらかというと得意',
+          '得意'
+        ]
       },
       gender: '',
       age: null,
@@ -80,6 +96,8 @@ export default {
       digitalReadTime: '',
       leftSight: 1.5,
       rightSight: 1.5,
+      skipRead: '',
+      japanese: '',
       updating: false,
       error: false
     }
@@ -111,6 +129,8 @@ export default {
       this.digitalReadTime = obj.digitalReadTime
       this.leftSight = obj.leftSight
       this.rightSight = obj.rightSight
+      this.skipRead = obj.skipRead
+      this.japanese = obj.japanese
     }
   },
   methods: {
@@ -125,7 +145,9 @@ export default {
         kindOfBook: this.kindOfBook,
         digitalReadTime: this.digitalReadTime,
         leftSight: this.leftSight,
-        rightSight: this.rightSight
+        rightSight: this.rightSight,
+        skipRead: this.skipRead,
+        japanese: this.japanese
       }
       firebase
         .firestore()
