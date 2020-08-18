@@ -2,7 +2,9 @@
   v-layout
     main(v-if="user").mt-6
       LoginInfoCard(:user="user" @logout="logout")
-      EnqueteForm(:realName="realName", :belongs="belongs")
+      EnqueteForm(
+        :realName="realName", :belongs="belongs" :endEnquete="endEnquete" :enquete="enquete"
+        @setRealName="realName=$event" @setBelongs="belongs=$event" @endEnqueteTrue="endEnquete = true")
       TestList(:randomTestJsonArr="randomTestJsonArr")
     main(v-else="user")
       v-progress-circular(indeterminate size="64").progress
@@ -26,7 +28,9 @@ export default {
       realName: '',
       belongs: '',
       acceptDate: null,
-      oldAcceptDate: null
+      oldAcceptDate: null,
+      endEnquete: false,
+      enquete: {}
     }
   },
   computed: {
@@ -64,6 +68,12 @@ export default {
             const data = res.data()
             user = data
             isDocExisting = true
+            if (user.enquete !== undefined) {
+              this.endEnquete = true
+              this.enquete = user.enquete
+            } else {
+              this.endEnquete = false
+            }
             if (user.realName !== null) {
               this.realName = user.realName
               this.$store.commit('setRealName', this.realName)

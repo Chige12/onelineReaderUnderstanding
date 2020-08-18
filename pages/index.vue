@@ -74,8 +74,23 @@ export default {
       this.$store.commit('setRealName', this.realName)
       this.$store.commit('setBelongs', this.belongs)
       const date = new Date() // 読める形にする
-      this.$store.commit('setAcceptDate', date)
+      this.$store.commit('setAcceptDate', this.yyyymmddhhmi(date))
       this.$router.push('/tests')
+    },
+    yyyymmddhhmi(custom) {
+      if (custom) {
+        const customDate = new Date(custom)
+        const date = customDate
+        const yyyy = date.getFullYear()
+        const mm = ('0' + date.getMonth()).slice(-2)
+        const dd = ('0' + date.getDate()).slice(-2)
+        const hh = ('0' + date.getHours()).slice(-2)
+        const mi = ('0' + date.getMinutes()).slice(-2)
+        return `${yyyy}-${mm}-${dd}_${hh}-${mi}`
+      } else {
+        console.log('Error: custom date is' + custom)
+        return null
+      }
     }
   }
 }
