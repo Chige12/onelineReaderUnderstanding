@@ -56,7 +56,6 @@ export default {
   methods: {
     async getData() {
       let user = {}
-      let isDocExisting = false
       const uid = this.user.uid
       await firebase
         .firestore()
@@ -67,7 +66,6 @@ export default {
           if (res.exists) {
             const data = res.data()
             user = data
-            isDocExisting = true
             if (user.enquete !== undefined) {
               this.endEnquete = true
               this.enquete = user.enquete
@@ -102,18 +100,16 @@ export default {
                   console.log(error)
                 })
             }
+            // ドキュメントがあるとき
+            this.updateRandomTestsOrder(user.testsOrder)
+          } else {
+            // ドキュメントがないとき
+            this.setNewRandomTestsOrder()
           }
         })
         .catch((error) => {
           console.log('Error! : get Test order', error)
         })
-      if (isDocExisting) {
-        // ドキュメントがあるとき
-        this.updateRandomTestsOrder(user.testsOrder)
-      } else {
-        // ドキュメントがないとき
-        this.setNewRandomTestsOrder()
-      }
     },
     updateRandomTestsOrder(oldOrder) {
       if (oldOrder) {

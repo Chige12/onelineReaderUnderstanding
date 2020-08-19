@@ -84,19 +84,13 @@ export const mutations = {
     state.storylist = list
   },
   setRealName(state, name) {
-    if (state.realName === '') {
-      state.realName = name
-    }
+    state.realName = name
   },
   setBelongs(state, belongs) {
-    if (state.belongs === '') {
-      state.belongs = belongs
-    }
+    state.belongs = belongs
   },
   setAcceptDate(state, acceptDate) {
-    if (state.acceptDate === null) {
-      state.acceptDate = acceptDate
-    }
+    state.acceptDate = acceptDate
   }
 }
 

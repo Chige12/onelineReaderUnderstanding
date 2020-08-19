@@ -11,8 +11,15 @@
         :questionData="questionData"
         :radioAnswer="radioAnswer"
         :checkedAnswer="checkedAnswer"
+        :isReported="isReported"
+        :cause="cause"
+        :concreteReport="concreteReport"
         @updateCheckedAnswer="updateCheckedAnswer"
         @updateRadioAnswer="pushAnswerTimeList"
+        @clickReportPanel="pushAnswerTimeList"
+        @setIsReported="isReported = $event"
+        @setCause="cause = $event"
+        @setConcreteReport="concreteReport = $event"
         @fileParse="fileParse"
       )
       answerCheck(
@@ -54,7 +61,10 @@ export default {
       answerTimeList: [],
       radioAnswer: [],
       checkedAnswer: [],
-      isAnswerCheckOpened: false
+      isAnswerCheckOpened: false,
+      isReported: false,
+      cause: '',
+      concreteReport: ''
     }
   },
   computed: {
@@ -90,11 +100,13 @@ export default {
       }
 
       if (lessdata.key === 'Enter') {
-        if (this.timerRun) {
-          this.stop()
-          this.endTest()
-        } else {
-          this.start()
+        if (!this.endform) {
+          if (this.timerRun) {
+            this.stop()
+            this.endTest()
+          } else {
+            this.start()
+          }
         }
       } else {
         if (this.once === 0) {
@@ -184,6 +196,11 @@ export default {
               const answerTime = this.answerTimer
               const testFileData = {
                 user,
+                report: {
+                  isReported: this.isReported,
+                  cause: this.cause,
+                  concreteReport: this.concreteReport
+                },
                 data: this.data,
                 endTime: {
                   yyyymmddhhmi: this.yyyymmddhhmi(this.endTime),

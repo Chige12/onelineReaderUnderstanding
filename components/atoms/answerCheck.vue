@@ -11,7 +11,7 @@
                 div.text--primary {{questionData[0].A}}
               .your_answer.mt-6
                 v-list-item-subtitle.mb-2 あなたの解答
-                div.text--primary {{questionAnswer[0]}}
+                div.text--primary {{radioAnswer[0]}}
             v-list-item-content.circle-or-times
               v-icon(x-large color="blue" v-if="checkCorrectAnswer").correct mdi-checkbox-blank-circle-outline
               v-icon(x-large color="red" v-else="checkCorrectAnswer").mistake mdi-close
@@ -25,7 +25,7 @@ export default {
       type: Array,
       default: () => []
     },
-    questionAnswer: {
+    radioAnswer: {
       type: Array,
       default: () => []
     }
@@ -40,7 +40,7 @@ export default {
       return this.$store.state.user
     },
     checkCorrectAnswer() {
-      return this.questionData[0].A === this.questionAnswer[0]
+      return this.questionData[0].A === this.radioAnswer[0]
     }
   },
   methods: {
