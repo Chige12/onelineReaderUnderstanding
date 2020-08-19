@@ -24,7 +24,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Oneline Reader Test'
+        content: '一行表示UIの効果検証のためのWebオンライン被験者実験環境'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
