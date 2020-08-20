@@ -98,8 +98,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config) {
-      if (process.server && process.browser) {
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
