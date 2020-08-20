@@ -155,7 +155,7 @@ export default {
         const customDate = new Date(custom)
         const date = customDate
         const yyyy = date.getFullYear()
-        const mm = ('0' + date.getMonth()).slice(-2)
+        const mm = ('0' + String(Number(date.getMonth()) + 1)).slice(-2)
         const dd = ('0' + date.getDate()).slice(-2)
         const hh = ('0' + date.getHours()).slice(-2)
         const mi = ('0' + date.getMinutes()).slice(-2)
@@ -250,14 +250,29 @@ export default {
       const testIndex = RandomTestJsonArr.findIndex((x) => {
         return x.base === examinId + x.ext
       })
-      const RandomTestJsonArrMap = RandomTestJsonArr.map((value) => ({
-        key: value.key,
-        ui: value.ui,
-        done: value.done
-      }))
+      const today = new Date()
+      const RandomTestJsonArrMap = RandomTestJsonArr.map((value) => {
+        if (value.date === undefined) {
+          return {
+            key: value.key,
+            ui: value.ui,
+            done: value.done,
+            date: null
+          }
+        } else {
+          return {
+            key: value.key,
+            ui: value.ui,
+            done: value.done,
+            date: value.date
+          }
+        }
+      })
       if (testIndex !== -1) {
         RandomTestJsonArrMap[testIndex].done = true
         RandomTestJsonArr[testIndex].done = true
+        RandomTestJsonArrMap[testIndex].date = today
+        RandomTestJsonArr[testIndex].date = today
         firebase
           .firestore()
           .collection('users')

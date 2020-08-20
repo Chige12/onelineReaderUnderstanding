@@ -7,15 +7,15 @@
             v-list-item-title アンケート入力のお願い
             v-list-item-subtitle 被験者のご年齢や実験環境について把握するため、以下「アンケートを始める」ボタンからアンケート調査にご協力お願いいたします。
         v-card-actions.ml-2.mb-2
-          v-btn(outlined color="primary" @click="formOpen = true") アンケートを始める
+          v-btn(outlined color="primary" @click="formOpen()") アンケートを始める
       v-card.my-4(outlined v-if="endEnquete")
         v-list-item
           v-list-item-content.py-4
             v-list-item-title アンケートへのご協力ありがとうございました。
           v-list-item-action
-            v-btn(outlined color="primary" @click="formOpen = true") アンケート内容を変更する
+            v-btn(outlined color="primary" @click="formOpen()") アンケート内容を変更する
     transition(name="fade")
-      .enquete-form(v-if="formOpen")
+      .enquete-form(v-if="isformOpened")
         .enquete-form-wrapper
           .container.my-4
             v-form.mt-8(v-model="valid" ref="form")
@@ -46,7 +46,7 @@
                   v-radio-group.mt-2(v-model="japanese" row :rules="rules.req")
                     v-radio(v-for="(japanese,japaneseId) in sel.japanese" :key="`japanese-${japanese}`" :label="japanese" :value="japanese")
                 v-btn(:disabled="!valid" :color="error ? 'error' : 'primary'" @click="validate" :loading="updating").mr-2 {{endEnquete ? '回答を再送する' : '回答を送信する'}}
-                v-btn(color="#888" dark @click="formOpen = false") キャンセルして戻る
+                v-btn(color="#888" dark @click="isformOpened = false") キャンセルして戻る
 </template>
 <script>
 import firebase from '~/plugins/firebase'
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       valid: false,
-      formOpen: false,
+      isformOpened: false,
       rules: {
         req: [(v) => !!v || '必須項目です'],
         age: [(v) => v > 0 || '0よりも大きくしてください']
@@ -134,6 +134,17 @@ export default {
     }
   },
   methods: {
+    formOpen() {
+      const realName = this.$store.state.realName
+      if (realName === '') {
+        this.$emit('setRealName', realName)
+      }
+      const belongs = this.$store.state.belongs
+      if (belongs === '') {
+        this.$emit('setBelongs', belongs)
+      }
+      this.isformOpened = true
+    },
     validate() {
       this.$refs.form.validate()
       this.updating = true
@@ -161,7 +172,7 @@ export default {
         .then(() => {
           console.log('Succsess update enquete data')
           this.updating = false
-          this.formOpen = false
+          this.isformOpened = false
           this.$emit('endEnqueteTrue')
         })
         .catch((error) => {

@@ -162,6 +162,7 @@ export default {
         key: value.key,
         ui: value.ui,
         done: value.done,
+        date: value.date,
         ...summaryJson.fileMap[value.key]
       }))
     },
@@ -202,6 +203,7 @@ export default {
         key: value.key,
         ui: value.ui,
         done: value.done,
+        date: value.date,
         ...summaryJson.fileMap[value.key]
       }))
     },
@@ -212,7 +214,8 @@ export default {
       return this.randomizeTestsOrderKeyArr().map((value, index) => ({
         key: value,
         ui: randomizeTestsOrderUIArr[index],
-        done: false
+        done: false,
+        date: null
       }))
     },
     randomizeTestsOrderUIArr() {
@@ -233,14 +236,14 @@ export default {
       // 半々ずつテストする
       const uiArr = []
       for (let i = 0; i < summaryJsonkeyMap.length; i++) {
-        if (i % 2 === 0) {
-          // 偶数の時
+        if (i % 2 !== 0) {
+          // 奇数の時
           uiArr.push('oneline')
         } else if (i === summaryJsonkeyMap.length - 1) {
-          // 奇数で最後の時はランダム
+          // 偶数で最後の時はランダム
           uiArr.push(this.getRandomInt(2) === 0 ? 'oneline' : 'scroll')
         } else {
-          // 奇数の時
+          // 偶数の時
           uiArr.push('scroll')
         }
       }
