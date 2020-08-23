@@ -120,7 +120,7 @@ export const actions = {
       })
   },
   logout({ commit }) {
-    this.$router.push('./')
+    this.$router.push('/')
     setTimeout(() => {
       firebase
         .auth()

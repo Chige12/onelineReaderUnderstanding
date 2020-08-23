@@ -86,19 +86,7 @@ export default {
               this.$store.commit('setAcceptDate', this.acceptDate)
             }
             if (this.acceptDate === null) {
-              firebase
-                .auth()
-                .signOut()
-                .then(() => {
-                  this.$store.commit('logout')
-                  this.$store.commit('setRealName', '')
-                  this.$store.commit('setBelongs', '')
-                  this.$store.commit('setAcceptDate', null)
-                  this.$router.push('/')
-                })
-                .catch(function(error) {
-                  console.log(error)
-                })
+              this.logout()
             }
             // ドキュメントがあるとき
             this.updateRandomTestsOrder(user.testsOrder)
@@ -108,6 +96,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.logout()
           console.log('Error! : get Test order', error)
         })
     },
@@ -153,6 +142,7 @@ export default {
           console.log('Succsess update Test order')
         })
         .catch((error) => {
+          this.logout()
           console.log('Error! : update Test order', error)
         })
     },
@@ -194,6 +184,7 @@ export default {
           console.log('Succsess set Test order')
         })
         .catch((error) => {
+          this.logout()
           console.log('Error! : set Test order', error)
         })
     },
