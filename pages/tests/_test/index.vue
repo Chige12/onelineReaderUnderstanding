@@ -13,7 +13,7 @@
       </div>
     </div>
     <Whiteout ref="whiteoutRef" />
-    <StopWatch />
+    <StopWatch :is-start-page-showed="isStartPageShowed" />
     <StartPage
       v-if="isStartPageShowed"
       :title="title"
@@ -73,6 +73,12 @@ export default {
     }
   },
   mounted() {
+    // 戻るボタン禁止
+    history.pushState(null, null, null)
+    window.onpopstate = function(event) {
+      history.pushState(null, null, null)
+      alert('ブラウザの戻るボタンは禁止されています。')
+    }
     this.mountedRun()
   },
   created() {
