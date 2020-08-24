@@ -40,7 +40,7 @@ export default {
     answerCheck
   },
   props: {
-    isStartPageShowed: {
+    isstartpageshowed: {
       type: Boolean,
       defalt: true
     }
@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     lessdata(lessdata) {
-      if (!this.endform && !this.isStartPageShowed) {
+      if (!this.endform && !this.isstartpageshowed) {
         const nowtime = this.timer
         const nowrow = document.getElementById(`pg_${lessdata.row}`)
         let word
