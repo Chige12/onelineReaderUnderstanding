@@ -26,9 +26,9 @@
                   label.mr-8 性別 *
                   v-radio(v-for="(gen,genId) in sel.gender" :key="`gen-${gen}`" :label="gen" :value="gen")
                 li: v-text-field.my-4(label="年齢 *" type="number" v-model.number="age" suffix="歳" :rules="rules.age")
-                li: v-textarea.my-4(label="普段どのくらい本や新聞などの紙媒体の読み物を読みますか？ *" hint="紙媒体であれば、参考書,論文,雑誌,文庫本等々、ジャンルの指定はありません。「週何時間」や「1カ月何冊」などと回答いただければ結構です。" v-model="bookReadTime" rows="1" :rules="rules.req")
-                li: v-textarea.my-4(label="どんな読み物を読みますか？" hint="参考書、論文、雑誌、文庫本といったカテゴリで回答いただければ結構です" v-model="kindOfBook" rows="1")
-                li: v-textarea.my-4(label="普段どのくらいスマホやPCで活字を読みますか？ *" hint="SNS等のアプリも含みます。「週何時間」や「1日何時間」などと回答いただければ結構です。" v-model="digitalReadTime" rows="1" :rules="rules.req")
+                li: v-textarea.my-4(label="普段どのくらいの頻度で本や新聞などの紙媒体の読み物を読みますか？ *" hint="紙媒体であれば、参考書,論文,雑誌,文庫本等々、ジャンルの指定はありません。「週何時間」や「1カ月何冊」などと回答いただければ結構です。" v-model="bookReadTime" rows="1" :rules="rules.req")
+                li: v-textarea.my-4(label="普段どのくらいの頻度でスマホやPCで活字を読みますか？ *" hint="SNS等のアプリも含みます。「週何時間」や「1日何時間」などと回答いただければ結構です。" v-model="digitalReadTime" rows="1" :rules="rules.req")
+                li: v-textarea.my-4(label="どんな読み物を読みますか？" hint="参考書、論文、雑誌、文庫本といったカテゴリで回答いただければ結構です。" v-model="kindOfBook" rows="1")
                 li: v-row.my-4
                   v-col(cols="12" md="6")
                     .pt-2 視力はどのくらいですか *
@@ -42,7 +42,7 @@
                   v-radio-group.mt-2(v-model="skipRead" row :rules="rules.req")
                     v-radio(v-for="(skipRead,skipReadId) in sel.skipRead" :key="`skipRead-${skipRead}`" :label="skipRead" :value="skipRead")
                 li: .my-4
-                  label 国語の問題文は得意ですか？ *
+                  label 文章の読解力を問うような国語の問題は得意ですか？ *
                   v-radio-group.mt-2(v-model="japanese" row :rules="rules.req")
                     v-radio(v-for="(japanese,japaneseId) in sel.japanese" :key="`japanese-${japanese}`" :label="japanese" :value="japanese")
                 v-btn(:disabled="!valid" :color="error ? 'error' : 'primary'" @click="validate" :loading="updating").mr-2 {{endEnquete ? '回答を再送する' : '回答を送信する'}}

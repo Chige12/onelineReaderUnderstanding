@@ -39,6 +39,12 @@ export default {
     questionForm,
     answerCheck
   },
+  props: {
+    isstartpageshowed: {
+      type: Boolean,
+      defalt: true
+    }
+  },
   data() {
     return {
       timer: '00:00:000',
@@ -83,52 +89,52 @@ export default {
   },
   watch: {
     lessdata(lessdata) {
-      const nowtime = this.timer
-      const nowrow = document.getElementById(`pg_${lessdata.row}`)
-      let word
-      if (nowrow) {
-        word = nowrow.textContent.length
-      } else {
-        word = null
-      }
-      if (this.data.length !== 0) {
-        if (this.data[this.data.length - 1].time !== nowtime) {
+      if (!this.endform && !this.isstartpageshowed) {
+        const nowtime = this.timer
+        const nowrow = document.getElementById(`pg_${lessdata.row}`)
+        let word
+        if (nowrow) {
+          word = nowrow.textContent.length
+        } else {
+          word = null
+        }
+        if (this.data.length !== 0) {
+          if (this.data[this.data.length - 1].time !== nowtime) {
+            this.data.push({ ...lessdata, time: nowtime, word })
+          }
+        } else {
           this.data.push({ ...lessdata, time: nowtime, word })
         }
-      } else {
-        this.data.push({ ...lessdata, time: nowtime, word })
-      }
 
-      if (lessdata.key === 'Enter') {
-        if (!this.endform) {
+        if (lessdata.key === 'Enter') {
           if (this.timerRun) {
             this.stop()
             this.endTest()
           } else {
             this.start()
           }
+        } else {
+          if (this.once === 0) {
+            this.start()
+          } else if (this.row !== null && this.row === lessdata.row) {
+            this.stop()
+            this.endTest()
+          }
+          this.once++
+          this.row = lessdata.row
+          console.log(
+            'Key : ' +
+              lessdata.key +
+              '\nRow : ' +
+              lessdata.row +
+              '\nHeight : ' +
+              lessdata.height +
+              '\nTime : ' +
+              nowtime +
+              '\nWord : ' +
+              word
+          )
         }
-      } else {
-        if (this.once === 0) {
-          this.start()
-        } else if (this.row !== null && this.row === lessdata.row) {
-          this.stop()
-          this.endTest()
-        }
-        this.once++
-        this.row = lessdata.row
-        console.log(
-          'Key : ' +
-            lessdata.key +
-            '\nRow : ' +
-            lessdata.row +
-            '\nHeight : ' +
-            lessdata.height +
-            '\nTime : ' +
-            nowtime +
-            '\nWord : ' +
-            word
-        )
       }
     }
   },
