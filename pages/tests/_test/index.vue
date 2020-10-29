@@ -77,7 +77,7 @@ export default {
     history.pushState(null, null, null)
     window.onpopstate = (event) => {
       history.pushState(null, null, null)
-      if (isStartPageShowed) {
+      if (this.isStartPageShowed) {
         const r = confirm(
           'このページでのブラウザの戻るボタンは禁止されています。トップページに移動しますか？'
         )
@@ -86,7 +86,7 @@ export default {
           this.$router.push('/tests')
         }
       } else {
-        alert("ブラウザの戻るボタンは禁止されています。");
+        alert('ブラウザの戻るボタンは禁止されています。')
       }
     }
     this.mountedRun()

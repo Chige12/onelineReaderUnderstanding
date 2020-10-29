@@ -53,12 +53,16 @@ export default {
       default: null
     }
   },
-  data() {
-    return {
-      tab: 0
-    }
-  },
   computed: {
+    tab() {
+      if (this.randomTestJsonArr[11].done) {
+        return 2
+      } else if (this.randomTestJsonArr[5].done) {
+        return 1
+      } else {
+        return 0
+      }
+    },
     randomTestJsonSixSliceArr() {
       const sliceInterval = 6
       const sliceTime = this.randomTestJsonArr.length / sliceInterval
@@ -73,6 +77,9 @@ export default {
       }
       return arr
     }
+  },
+  mounted() {
+    console.log(this.randomTestJsonArr)
   },
   methods: {
     startBtnText(id) {
